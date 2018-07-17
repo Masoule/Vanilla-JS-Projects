@@ -57,7 +57,7 @@
 
     const images = document.querySelectorAll('.slide-in')
 
-    window.addEventListener('scroll', checkSlide)
+    window.addEventListener('scroll', debounce(checkSlide))
 
     function checkSlide(e){
         console.count(e)
