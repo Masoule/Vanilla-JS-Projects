@@ -60,7 +60,17 @@
     window.addEventListener('scroll', debounce(checkSlide))
 
     function checkSlide(e){
-        console.count(e)
+        images.forEach( img => {
+          const slideInAt = window.scrollY + window.innerHeight - img.height/2;
+          const imgBottom = img.offsetTop + img.height;
+          const show = slideInAt > img.offsetTop
+          const notHide = window.scrollY < imgBottom;
+          if (show && notHide) {
+            img.classList.add('active');
+          } else {
+            img.classList.remove('active')
+          }
+        });
     }
 
   </script>
