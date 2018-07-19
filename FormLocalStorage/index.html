@@ -34,7 +34,6 @@
   function addItem(e){
     e.preventDefault();
     const text = (this.querySelector('[name=item]')).value;
-    console.log(text);
     const item = {
       text,
       checked: false
@@ -48,7 +47,8 @@
     dishList.innerHTML = dishes.map( (dish, i) => {
       return `
       <li>
-        <label for=''>${dish.text}</label>
+      <input type='checkbox' data-index=${i} id='item${i}'/>
+        <label for='item${i}'>${dish.text}</label>
       </li>
       `;
     }).join('');  
