@@ -39,6 +39,19 @@
       text,
       checked: false
     }
+    items.push(item);
+    populateList(items, itemsList)
+    this.reset();
+  }
+  
+  function populateList(dishes=[], dishList) {
+    dishList.innerHTML = dishes.map( (dish, i) => {
+      return `
+      <li>
+        <label for=''>${dish.text}</label>
+      </li>
+      `;
+    }).join('');  
   }
 
 </script>
