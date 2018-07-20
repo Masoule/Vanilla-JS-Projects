@@ -40,6 +40,7 @@
     }
     items.push(item);
     populateList(items, itemsList)
+    localStorage.setItem('items', JSON.stringify(items));
     this.reset();
   }
   
@@ -47,7 +48,7 @@
     dishList.innerHTML = dishes.map( (dish, i) => {
       return `
       <li>
-      <input type='checkbox' data-index=${i} id='item${i}'/>
+      <input type='checkbox' data-index=${i} id='item${i}' ${dish.checked} ? 'checked' : '' />
         <label for='item${i}'>${dish.text}</label>
       </li>
       `;
