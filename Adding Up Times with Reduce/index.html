@@ -183,12 +183,25 @@
   </ul>
 <script>
 
-  let totalSeconds = 0;
-  document.querySelectorAll('[data-time]')
-    .forEach( node => {
-      let [min, sec] = node.dataset.time.split(':').map(parseFloat)
-      totalSeconds += min * 60 + sec;
-  })
+  // this solution uses one forEach loop
+  // let totalSeconds = 0;
+  // document.querySelectorAll('[data-time]')
+  //   .forEach( node => {
+  //     let [min, sec] = node.dataset.time.split(':').map(parseFloat)
+  //     totalSeconds += min * 60 + sec;
+  // })
+  
+  
+  //this solution uses several maps and reduce functions
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+  
+  const totalSeconds = timeNodes
+    .map( node => node.dataset.time)
+    .map( time => {
+      const [mins, secs] = time.split(':').map(parseFloat);
+      return mins * 60 + secs;
+    })
+    .reduce( ( total, secs ) => total + secs )
   
   // calculate hours and minutes
   let secsLeft = totalSeconds;
