@@ -32,7 +32,18 @@ function paintToCanvas() {
 function takePhoto() {
   snap.currentTime = 0;
   snap.play()
+  //take data out of the paintToCanvas
+  const data = canvas.toDataURL('image/jpeg'); //image in string format
+  const link = document.createElement('a');
+  link.href = data;
+  link.setAttribute('download', 'salome');
+  link.innerHTML = `<img src='${data}' alt="photo"/>`;
+  strip.insertBefore(link, strip.firstChild);
 }
 
 getVideo()
 
+//channels snapshots to canvas when video starts playing 
+video.addEventListener('canplay', paintToCanvas)
+
+//
