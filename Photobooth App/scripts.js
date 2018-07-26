@@ -29,4 +29,10 @@ function paintToCanvas() {
   
 }
 
+function takePhoto() {
+  snap.currentTime = 0;
+  snap.play()
+}
+
 getVideo()
+
