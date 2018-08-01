@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <form class="form">
+      <input type="text" name="item" placeholder="Type something" value="" required>
+      <input type="submit" name="" value="Add to List">
+    </form>
+
+    <div class="buttons">
+      <button class="button check-all">Select All</button>
+      <button class="button clear-all">Clear All</button>
+    </div>
+
+    <ul class="list">
+      <h2>To Do List</h2>
+    </ul>
+
+    <script>
+      const toDoList = JSON.parse(localStorage.getItem("items")) || [];
+      const form = document.querySelector('.form');
+      const list =  document.querySelector('.list');
+      const checkAllButton = document.querySelector('.check-all');
+      const clearAllButton = document.querySelector('.clear-all');
+
+      function addItem(e) {
+        e.preventDefault();
+        const text = this.querySelector('[name=item]').value;
+        let item = {
+          text,
+          checked: false
+        }
+        toDoList.push(item);
+        updateLocalStorage()
+        this.reset();
+      }
+
+      function toggleCheck(e) {
+        if ( !e.target.matches('input')) return;
+        let idx = e.target.dataset.index;
+        toDoList[idx].checked = !toDoList[idx].checked;
+        updateLocalStorage();
+      }
+
+      function updateLocalStorage() {
+        localStorage.setItem('items', JSON.stringify(toDoList));
+        renderList(toDoList);
+      }
+
+      function checkAll(e) {
+        toDoList.forEach( checkbox => checkbox.checked = true )
+        updateLocalStorage()
+      }
+
+      function clearAll(e) {
+        toDoList.forEach( checkbox => checkbox.checked = false )
+        updateLocalStorage()
+      }
+
+      function renderList(items = []) {
+        list.innerHTML = items.map( (item, i) => {
+          return `
+          <li>
+          <input type="checkbox" data-index=${i} ${item.checked ? "checked" : ""}> ${item.text}
+          </li>
+          `;
+        }).join('');
+      }
+
+      form.addEventListener('submit', addItem)
+      list.addEventListener('click', toggleCheck)
+      checkAllButton.addEventListener('click', checkAll);
+      clearAllButton.addEventListener('click', clearAll);
+      renderList(toDoList);
+    </script>
+
+  </body>
+</html>
