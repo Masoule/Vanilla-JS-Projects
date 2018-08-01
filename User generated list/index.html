@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
+  <body>
+
+    <form class="form">
+      <input type="text" name="" placeholder="Type something" value="">
+      <!-- <input type="submit" name="button" value="Add to List"> -->
+      <button type="button" name="button">Add to List</button>
+    </form>
+    
+    <ul class="list">
+      <h2>To Do List</h2>
+    </ul>
+    
+    <script>
+      const form = document.querySelector('.form');
+      const list = document.querySelector('.list');
+      
+      function addItem(e) {
+        e.preventDefault();
+        console.log('hi');
+      }
+      
+      form.addEventListener('submit', addItem)
+      form.addEventListener('click', addItem)
+      
+    </script>
+
+  </body>
+</html>

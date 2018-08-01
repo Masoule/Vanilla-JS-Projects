@@ -35,7 +35,7 @@
   const checkAllButton = document.querySelector('.check-all')
   const clearAllButton = document.querySelector('.clear-all')
   const items = JSON.parse(localStorage.getItem("items")) || [];
-  
+
   function addItem(e){
     e.preventDefault();
     const text = (this.querySelector('[name=item]')).value;
@@ -44,11 +44,10 @@
       checked: false
     }
     items.push(item);
-    populateList(items, itemsList)
-    localStorage.setItem('items', JSON.stringify(items));
+    updateLocalStorage()
     this.reset();
   }
-  
+
   function populateList(dishes=[], dishList) {
     dishList.innerHTML = dishes.map( (dish, i) => {
       return `
@@ -57,34 +56,32 @@
         <label for='item${i}'>${dish.text}</label>
       </li>
       `;
-    }).join('');  
+    }).join('');
   }
-  
+
   function toggleChecked(e) {
     if (!e.target.matches('input')) return;
     const el = e.target;
     const idx = el.dataset.index;
     items[idx].checked = !items[idx].checked;
-    updateLocalStorage()    
+    updateLocalStorage()
   }
-  
+
   function checkAll(e) {
-    console.log(e);
     items.forEach( checkbox => checkbox.checked = true )
-    updateLocalStorage()       
+    updateLocalStorage()
   }
-  
+
   function clearAll(e) {
-    console.log(e);
     items.forEach( checkbox => checkbox.checked = false )
-    updateLocalStorage()       
+    updateLocalStorage()
   }
-  
+
   function updateLocalStorage() {
-    localStorage.setItem('items',JSON.stringify(items)); 
-    populateList(items,itemsList)   
+    localStorage.setItem('items',JSON.stringify(items));
+    populateList(items,itemsList)
   }
-  
+
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleChecked);
   checkAllButton.addEventListener('click', checkAll);
@@ -96,4 +93,3 @@
 
 </body>
 </html>
-
