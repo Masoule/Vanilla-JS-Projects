@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and Upload</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<body>
+  <h2>Upload Your Files</h2>
+  <div class="drop-area">
+    <p>Drop your files in this area to upload</p>
+  </div>
+
+  <script>
+    const dropArea = document.querySelector('.drop-area')
+    
+    function handleDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const event = e.type;
+      ( event == 'dragenter' || event == 'dragover') ? dropArea.classList.add('highlight') : dropArea.classList.remove('highlight')
+      if ( event == 'drop' ) {
+        let files = e.dataTransfer.files;
+        handleFile(files);
+      }
+    }
+    
+    function handleFile(files) {
+      [...files].forEach( file => {
+        upload(file);
+        preview(file);
+      })
+    }
+
+    function preview(file) {
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        let preview = document.createElement('img')
+        preview.height = 100;
+        preview.src = reader.result;
+        document.querySelector('div').appendChild(preview)
+      }
+    }
+    
+    function upload(file) {
+      console.log('hi')
+    }
+      
+    dropArea.addEventListener('dragenter', handleDrop)
+    dropArea.addEventListener('dragover', handleDrop)
+    dropArea.addEventListener('dragleave', handleDrop)
+    dropArea.addEventListener('drop', handleDrop)
+    
+    
+  </script>
+  
+  <style media="screen"> 
+    
+    body {
+      background-color: #e1e5ed;
+      font-family: 'Lato', sans-serif;
+    } 
+    
+    p {
+      margin: 0;
+    }
+     
+    .drop-area {
+      margin: auto;
+      padding: 10px;
+      width: 90%;
+      min-height: 300px;
+      border: 1px solid black;
+      background-color: white;
+    }    
+    
+    .highlight {
+      border-color: red;
+    }
+    
+    img {
+      margin: 10px;
+    }
+    
+    
+  </style>
+  </body>
+</html>
